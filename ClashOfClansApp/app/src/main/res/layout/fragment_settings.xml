@@ -20,21 +20,78 @@
             android:textStyle="bold"
             android:layout_marginBottom="16dp" />
 
-        <!--
-            Phase 3 will add:
-              • Builder's Apprentice level picker (1–8)
-              • Lab Assistant level picker (1–12)
-              • Goblin Event toggle switch
-              • Total Builders count selector (5 or 6)
-        -->
-        <TextView
-            android:id="@+id/placeholder_settings"
+        <!-- Number of Builders -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="[ Helper level selectors + Goblin Event toggle – Phase 3 ]"
-            android:textColor="@color/text_hint"
-            android:padding="12dp"
-            android:background="@color/card_bg" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Number of Builders"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp" />
+            <NumberPicker
+                android:id="@+id/np_num_builders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+        </LinearLayout>
+
+        <!-- Builder's Apprentice Level -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Builder's Apprentice Level"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp" />
+            <NumberPicker
+                android:id="@+id/np_apprentice_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+        </LinearLayout>
+
+        <!-- Lab Assistant Level -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lab Assistant Level"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp" />
+            <NumberPicker
+                android:id="@+id/np_lab_assistant_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+        </LinearLayout>
+
+        <!-- Work for Hire Event -->
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_work_for_hire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Work for Hire Event"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp" />
 
     </LinearLayout>
 </ScrollView>

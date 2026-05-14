@@ -128,53 +128,88 @@ public class UpgradeRepository {
         return appSettingsDao.getSettingLiveData(key);
     }
 
+    public String getSettingSync(String key) {
+        return appSettingsDao.getSettingSync(key);
+    }
+
     public void saveSetting(String key, String value) {
         executor.execute(() -> appSettingsDao.insertOrUpdate(new AppSettings(key, value)));
     }
 
     public void initializeDefaultSlotsIfNeeded() {
         executor.execute(() -> {
-            if (workerSlotDao.getAllSlotsSync().isEmpty()) {
-                java.util.List<WorkerSlot> slots = new java.util.ArrayList<>();
-                for (int i = 1; i <= 6; i++) {
-                    WorkerSlot slot = new WorkerSlot();
-                    slot.name = "Home Builder " + i;
-                    slot.village = "HOME";
-                    slot.type = "BUILDER";
-                    slots.add(slot);
-                }
-                
-                WorkerSlot lab = new WorkerSlot();
-                lab.name = "Laboratory";
-                lab.village = "HOME";
-                lab.type = "LAB";
-                slots.add(lab);
+            java.util.List<WorkerSlot> existingSlots = workerSlotDao.getAllSlotsSync();
+            java.util.List<WorkerSlot> slotsToAdd = new java.util.ArrayList<>();
 
+            long homeBuilders = existingSlots.stream().filter(s -> "HOME".equals(s.village) && "BUILDER".equals(s.type)).count();
+            for (long i = homeBuilders + 1; i <= 7; i++) {
+                WorkerSlot slot = new WorkerSlot();
+                slot.name = (i == 7) ? "Goblin Builder (Event)" : "Home Builder " + i;
+                slot.village = "HOME";
+                slot.type = "BUILDER";
+                slotsToAdd.add(slot);
+            }
+
+            long labCount = existingSlots.stream().filter(s -> "HOME".equals(s.village) && "LAB".equals(s.type)).count();
+            if (labCount < 1) {
+                WorkerSlot lab1 = new WorkerSlot();
+                lab1.name = "Laboratory";
+                lab1.village = "HOME";
+                lab1.type = "LAB";
+                slotsToAdd.add(lab1);
+            }
+            if (labCount < 2) {
+                WorkerSlot lab2 = new WorkerSlot();
+                lab2.name = "Goblin Researcher (Event)";
+                lab2.village = "HOME";
+                lab2.type = "LAB";
+                slotsToAdd.add(lab2);
+            }
+
+            boolean hasPet = existingSlots.stream().anyMatch(s -> "HOME".equals(s.village) && "PET".equals(s.type));
+            if (!hasPet) {
                 WorkerSlot pet = new WorkerSlot();
                 pet.name = "Pet House";
                 pet.village = "HOME";
                 pet.type = "PET";
-                slots.add(pet);
+                slotsToAdd.add(pet);
+            }
 
+            long bbBuilders = existingSlots.stream().filter(s -> "BUILDER_BASE".equals(s.village) && "BUILDER".equals(s.type)).count();
+            if (bbBuilders < 1) {
                 WorkerSlot bb1 = new WorkerSlot();
                 bb1.name = "Master Builder";
                 bb1.village = "BUILDER_BASE";
                 bb1.type = "BUILDER";
-                slots.add(bb1);
-                
+                slotsToAdd.add(bb1);
+            }
+            if (bbBuilders < 2) {
                 WorkerSlot bb2 = new WorkerSlot();
-                bb2.name = "B.O.B";
+                bb2.name = "O.T.T.O";
                 bb2.village = "BUILDER_BASE";
                 bb2.type = "BUILDER";
-                slots.add(bb2);
+                slotsToAdd.add(bb2);
+            } else {
+                // Rename existing B.O.B to O.T.T.O
+                for (WorkerSlot s : existingSlots) {
+                    if ("B.O.B".equals(s.name)) {
+                        s.name = "O.T.T.O";
+                        workerSlotDao.update(s);
+                    }
+                }
+            }
 
+            boolean hasStarLab = existingSlots.stream().anyMatch(s -> "BUILDER_BASE".equals(s.village) && "LAB".equals(s.type));
+            if (!hasStarLab) {
                 WorkerSlot starLab = new WorkerSlot();
                 starLab.name = "Star Laboratory";
                 starLab.village = "BUILDER_BASE";
                 starLab.type = "LAB";
-                slots.add(starLab);
+                slotsToAdd.add(starLab);
+            }
 
-                workerSlotDao.insertAll(slots);
+            if (!slotsToAdd.isEmpty()) {
+                workerSlotDao.insertAll(slotsToAdd);
             }
         });
     }

@@ -32,6 +32,9 @@ public interface WorkerSlotDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<WorkerSlot> slots);
 
+    @androidx.room.Update
+    void update(WorkerSlot slot);
+
     @Query("SELECT * FROM worker_slots")
     List<WorkerSlot> getAllSlotsSync();
 }

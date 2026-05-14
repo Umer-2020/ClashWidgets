@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -52,35 +52,37 @@ public class BoostTaskBottomSheet extends BottomSheetDialogFragment {
             tvBoostDesc.setText("Apply Builder's Apprentice Boost (Subtracts Hours)");
         }
 
-        NumberPicker npBoostHours = view.findViewById(R.id.np_boost_hours);
-        npBoostHours.setMinValue(1);
-        npBoostHours.setMaxValue(12);
-
-        SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
-        String prefKey = isLab ? "default_lab_assistant_boost" : "default_builders_apprentice_boost";
-        int defaultHours = prefs.getInt(prefKey, isLab ? 1 : 8);
-
-        // Ensure default is within bounds
-        if (defaultHours > npBoostHours.getMaxValue()) defaultHours = npBoostHours.getMaxValue();
-        if (defaultHours < npBoostHours.getMinValue()) defaultHours = npBoostHours.getMinValue();
+        TextView tvBoostAmount = view.findViewById(R.id.tv_boost_amount);
+        UpgradeRepository repo = UpgradeRepository.getInstance(requireContext());
         
-        npBoostHours.setValue(defaultHours);
+        String settingKey = isLab ? "lab_assistant_level" : "apprentice_level";
+        int defaultLevel = isLab ? 1 : 8;
+
+        final int[] hoursToSubtract = {defaultLevel};
+
+        repo.getSetting(settingKey).observe(getViewLifecycleOwner(), value -> {
+            if (value != null) {
+                hoursToSubtract[0] = Integer.parseInt(value);
+            } else {
+                hoursToSubtract[0] = defaultLevel;
+            }
+            tvBoostAmount.setText("-" + hoursToSubtract[0] + " Hours");
+        });
 
         view.findViewById(R.id.btn_apply_boost).setOnClickListener(v -> {
-            int hours = npBoostHours.getValue();
-            prefs.edit().putInt(prefKey, hours).apply(); // Save the new default
+            int hours = hoursToSubtract[0];
 
             long millisToSubtract = hours * 60L * 60L * 1000L;
             
             task.endTime -= millisToSubtract;
-            UpgradeRepository.getInstance(getContext()).updateTask(task);
+            repo.updateTask(task);
             
             Toast.makeText(getContext(), "Boost applied!", Toast.LENGTH_SHORT).show();
             dismiss();
         });
 
         view.findViewById(R.id.btn_delete).setOnClickListener(v -> {
-            UpgradeRepository.getInstance(getContext()).deleteTask(task.id);
+            repo.deleteTask(task.id);
             Toast.makeText(getContext(), "Upgrade removed", Toast.LENGTH_SHORT).show();
             dismiss();
         });
