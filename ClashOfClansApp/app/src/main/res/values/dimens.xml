@@ -1,0 +1,19 @@
+<resources>
+    <!-- Layout spacing -->
+    <dimen name="screen_padding">16dp</dimen>
+    <dimen name="card_padding">12dp</dimen>
+    <dimen name="item_spacing">8dp</dimen>
+    <dimen name="section_spacing">24dp</dimen>
+
+    <!-- Card corner radius -->
+    <dimen name="card_corner_radius">8dp</dimen>
+
+    <!-- Progress bar height in the detailed task row -->
+    <dimen name="progress_bar_height">6dp</dimen>
+
+    <!-- Typography -->
+    <dimen name="text_section_header">18sp</dimen>
+    <dimen name="text_card_title">15sp</dimen>
+    <dimen name="text_card_body">13sp</dimen>
+    <dimen name="text_hint">11sp</dimen>
+</resources>

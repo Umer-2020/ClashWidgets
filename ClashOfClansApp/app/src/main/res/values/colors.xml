@@ -1,10 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- ── Brand / Game palette ─────────────────────────────────────────── -->
+    <!-- Primary gold used for titles, accents, progress bars -->
+    <color name="gold_primary">#F0A500</color>
+    <!-- Lighter gold for highlights -->
+    <color name="gold_light">#FFD04B</color>
+    <!-- Elixir (pink/purple) – used for lab upgrade accents -->
+    <color name="elixir_purple">#C86DD7</color>
+    <!-- Dark Elixir – used for dark upgrade accents -->
+    <color name="dark_elixir">#5B2D8E</color>
+    <!-- Builder Red – used for builder slot accents -->
+    <color name="builder_red">#E8412D</color>
+
+    <!-- ── Backgrounds ───────────────────────────────────────────────────── -->
+    <!-- Main app background – deep dark brown matching CoC UI -->
+    <color name="bg_dark">#1C1208</color>
+    <!-- Card / slot item background -->
+    <color name="card_bg">#2E1F0A</color>
+    <!-- Navigation bar background -->
+    <color name="nav_bar_bg">#241508</color>
+
+    <!-- ── Text ─────────────────────────────────────────────────────────── -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#D4B483</color>
+    <color name="text_hint">#7A6040</color>
+
+    <!-- ── Navigation item tinting ──────────────────────────────────────── -->
+    <!-- Selector for nav item color (active = gold, inactive = muted) is in
+         res/color/nav_item_color.xml – added in Phase 3 polish pass. For now
+         a single color is used. -->
+    <color name="nav_item_color">#D4B483</color>
+
+    <!-- ── Status indicators ────────────────────────────────────────────── -->
+    <color name="status_available">#4CAF50</color>   <!-- Builder/slot is free -->
+    <color name="status_busy">#F44336</color>         <!-- Builder/slot is working -->
+    <color name="progress_bar_fill">#F0A500</color>   <!-- Progress bar foreground -->
+    <color name="progress_bar_bg">#3E2A0D</color>     <!-- Progress bar background track -->
+
 </resources>

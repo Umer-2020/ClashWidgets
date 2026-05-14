@@ -1,3 +1,48 @@
 <resources>
-    <string name="app_name">ClashOfClans-App</string>
+    <string name="app_name">ClashyWidgets</string>
+
+    <!-- Bottom navigation labels -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Dashboard section labels -->
+    <string name="section_home_village">Home Village</string>
+    <string name="section_builder_base">Builder Base</string>
+    <string name="section_builders">Builders</string>
+    <string name="section_laboratory">Laboratory</string>
+    <string name="section_pet_house">Pet House</string>
+    <string name="section_master_builder">Master Builder</string>
+    <string name="section_star_lab">Star Lab</string>
+
+    <!-- Slot states -->
+    <string name="slot_available">Available</string>
+    <string name="slot_working">Working</string>
+
+    <!-- Helper labels -->
+    <string name="helper_builders_apprentice">Builder\'s Apprentice</string>
+    <string name="helper_lab_assistant">Lab Assistant</string>
+    <string name="helper_boost_btn">Use Helper</string>
+
+    <!-- Settings labels -->
+    <string name="settings_goblin_event">Goblin Builder/Researcher Event</string>
+    <string name="settings_goblin_event_desc">Enable during "Work for Hire" events</string>
+    <string name="settings_apprentice_level">Builder\'s Apprentice Level</string>
+    <string name="settings_lab_assistant_level">Lab Assistant Level</string>
+    <string name="settings_num_builders">Number of Builders</string>
+
+    <!-- Add task dialog -->
+    <string name="dialog_add_task_title">Start Upgrade</string>
+    <string name="dialog_building_name_hint">Building name (optional)</string>
+    <string name="dialog_duration_label">Upgrade Duration</string>
+    <string name="dialog_days">Days</string>
+    <string name="dialog_hours">Hours</string>
+    <string name="dialog_minutes">Minutes</string>
+    <string name="dialog_btn_start">Start</string>
+    <string name="dialog_btn_cancel">Cancel</string>
+
+    <!-- Alarm channel -->
+    <string name="alarm_channel_id">upgrade_alarms</string>
+    <string name="alarm_channel_name">Upgrade Alarms</string>
+    <string name="alarm_notification_title">Upgrade finishing soon!</string>
+    <string name="alarm_notification_body">%1$s is almost done.</string>
 </resources>
