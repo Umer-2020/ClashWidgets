@@ -35,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // ── Navigation ───────────────────────────────────────────────────────
-        NavController navController =
-                Navigation.findNavController(this, R.id.nav_host_fragment);
+        androidx.navigation.fragment.NavHostFragment navHostFragment = 
+                (androidx.navigation.fragment.NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(binding.bottomNav, navController);
 
         // ── Data Initialization ──────────────────────────────────────────────
