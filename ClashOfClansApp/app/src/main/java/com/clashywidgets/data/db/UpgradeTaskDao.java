@@ -20,6 +20,9 @@ public interface UpgradeTaskDao {
     @Query("SELECT * FROM upgrade_tasks")
     List<UpgradeTask> getAllTasksSync();
 
+    @Query("SELECT * FROM upgrade_tasks WHERE id = :taskId LIMIT 1")
+    UpgradeTask getTaskSync(int taskId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(UpgradeTask task);
 

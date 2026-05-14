@@ -25,9 +25,11 @@ public class DashboardViewModel extends AndroidViewModel {
 
     private final LiveData<String> numBuildersSetting;
     private final LiveData<String> workForHireSetting;
+    private final LiveData<String> numBbBuildersSetting;
 
     private final MediatorLiveData<List<SlotWithTask>> filteredHomeBuilders = new MediatorLiveData<>();
     private final MediatorLiveData<List<SlotWithTask>> filteredLabSlots = new MediatorLiveData<>();
+    private final MediatorLiveData<List<SlotWithTask>> filteredBuilderBaseSlots = new MediatorLiveData<>();
 
     public DashboardViewModel(@NonNull Application application) {
         super(application);
@@ -41,21 +43,24 @@ public class DashboardViewModel extends AndroidViewModel {
 
         numBuildersSetting = repository.getSetting("num_builders");
         workForHireSetting = repository.getSetting("work_for_hire");
+        numBbBuildersSetting = repository.getSetting("num_bb_builders");
 
         setupFilters();
     }
 
     private void setupFilters() {
-        // Filter Home Builders
+        // Filter Home Builders (affected by num_builders + work_for_hire)
         filteredHomeBuilders.addSource(rawHomeBuilders, list -> updateHomeBuilders());
         filteredHomeBuilders.addSource(numBuildersSetting, val -> updateHomeBuilders());
         filteredHomeBuilders.addSource(workForHireSetting, val -> updateHomeBuilders());
 
-        // Filter Lab Slots
+        // Filter Lab Slots (affected by work_for_hire only)
         filteredLabSlots.addSource(rawLabSlots, list -> updateLabSlots());
         filteredLabSlots.addSource(workForHireSetting, val -> updateLabSlots());
 
-
+        // Filter Builder Base Slots (affected by num_bb_builders)
+        filteredBuilderBaseSlots.addSource(builderBaseSlots, list -> updateBuilderBaseSlots());
+        filteredBuilderBaseSlots.addSource(numBbBuildersSetting, val -> updateBuilderBaseSlots());
     }
 
     private void updateHomeBuilders() {
@@ -63,14 +68,31 @@ public class DashboardViewModel extends AndroidViewModel {
         if (builders == null) return;
 
         String numStr = numBuildersSetting.getValue();
-        int baseBuilders = (numStr != null) ? Integer.parseInt(numStr) : 6;
+        // Default to 5 builders if not set (most players have 5)
+        int baseBuilders = (numStr != null) ? Integer.parseInt(numStr) : 5;
         
         boolean workForHire = "true".equals(workForHireSetting.getValue());
-        int totalAllowed = workForHire ? baseBuilders + 1 : baseBuilders;
 
         List<SlotWithTask> filtered = new ArrayList<>();
-        for (int i = 0; i < builders.size() && i < totalAllowed; i++) {
-            filtered.add(builders.get(i));
+
+        // First, add all normal builders up to baseBuilders exactly by name
+        for (int i = 1; i <= baseBuilders; i++) {
+            String nameToFind = "Home Builder " + i;
+            for (SlotWithTask slot : builders) {
+                if (nameToFind.equals(slot.slot.name)) {
+                    filtered.add(slot);
+                    break;
+                }
+            }
+        }
+
+        // Then, add the Goblin Builder if the event is active
+        if (workForHire) {
+            for (SlotWithTask slot : builders) {
+                if (slot.slot.name.contains("Goblin")) {
+                    filtered.add(slot);
+                }
+            }
         }
         filteredHomeBuilders.setValue(filtered);
     }
@@ -80,13 +102,47 @@ public class DashboardViewModel extends AndroidViewModel {
         if (labs == null) return;
 
         boolean workForHire = "true".equals(workForHireSetting.getValue());
-        int totalAllowed = workForHire ? 2 : 1;
 
         List<SlotWithTask> filtered = new ArrayList<>();
-        for (int i = 0; i < labs.size() && i < totalAllowed; i++) {
-            filtered.add(labs.get(i));
+        
+        // Add normal laboratory
+        for (SlotWithTask slot : labs) {
+            if (!slot.slot.name.contains("Goblin")) {
+                filtered.add(slot);
+            }
+        }
+
+        // Add Goblin Researcher if the event is active
+        if (workForHire) {
+            for (SlotWithTask slot : labs) {
+                if (slot.slot.name.contains("Goblin")) {
+                    filtered.add(slot);
+                }
+            }
         }
         filteredLabSlots.setValue(filtered);
+    }
+
+    private void updateBuilderBaseSlots() {
+        List<SlotWithTask> bbSlots = builderBaseSlots.getValue();
+        if (bbSlots == null) return;
+
+        String numBbStr = numBbBuildersSetting.getValue();
+        int baseBbBuilders = (numBbStr != null) ? Integer.parseInt(numBbStr) : 1;
+
+        List<SlotWithTask> filtered = new ArrayList<>();
+        
+        // Exact match for Builder Base Builders
+        for (int i = 1; i <= baseBbBuilders; i++) {
+            String nameToFind = "Builder Base Builder " + i;
+            for (SlotWithTask slot : bbSlots) {
+                if (nameToFind.equals(slot.slot.name)) {
+                    filtered.add(slot);
+                    break;
+                }
+            }
+        }
+        filteredBuilderBaseSlots.setValue(filtered);
     }
 
 
@@ -103,7 +159,7 @@ public class DashboardViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<SlotWithTask>> getBuilderBaseSlots() {
-        return builderBaseSlots;
+        return filteredBuilderBaseSlots;
     }
 
     public LiveData<List<SlotWithTask>> getStarLabSlots() {

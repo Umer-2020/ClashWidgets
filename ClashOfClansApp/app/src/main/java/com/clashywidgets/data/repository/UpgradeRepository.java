@@ -118,7 +118,11 @@ public class UpgradeRepository {
     // Phase 3: Helper boost
     public void applyHelperBoost(int taskId, int hoursToSubtract) {
         executor.execute(() -> {
-            // Implementation pending: fetch task synchronously, update time, save
+            UpgradeTask task = upgradeTaskDao.getTaskSync(taskId);
+            if (task != null) {
+                task.endTime -= hoursToSubtract * 3600000L;
+                upgradeTaskDao.update(task);
+            }
         });
     }
 
@@ -176,27 +180,26 @@ public class UpgradeRepository {
             }
 
             long bbBuilders = existingSlots.stream().filter(s -> "BUILDER_BASE".equals(s.village) && "BUILDER".equals(s.type)).count();
-            if (bbBuilders < 1) {
-                WorkerSlot bb1 = new WorkerSlot();
-                bb1.name = "Master Builder";
-                bb1.village = "BUILDER_BASE";
-                bb1.type = "BUILDER";
-                slotsToAdd.add(bb1);
-            }
-            if (bbBuilders < 2) {
-                WorkerSlot bb2 = new WorkerSlot();
-                bb2.name = "O.T.T.O";
-                bb2.village = "BUILDER_BASE";
-                bb2.type = "BUILDER";
-                slotsToAdd.add(bb2);
-            } else {
-                // Rename existing B.O.B to O.T.T.O
-                for (WorkerSlot s : existingSlots) {
-                    if ("B.O.B".equals(s.name)) {
-                        s.name = "O.T.T.O";
+            
+            // Rename any existing builder base builders to generic names
+            long bbIndex = 1;
+            for (WorkerSlot s : existingSlots) {
+                if ("BUILDER_BASE".equals(s.village) && "BUILDER".equals(s.type)) {
+                    String genericName = "Builder Base Builder " + bbIndex++;
+                    if (!genericName.equals(s.name)) {
+                        s.name = genericName;
                         workerSlotDao.update(s);
                     }
                 }
+            }
+
+            // Add any missing builder base builders up to 2
+            for (long i = bbBuilders + 1; i <= 2; i++) {
+                WorkerSlot slot = new WorkerSlot();
+                slot.name = "Builder Base Builder " + i;
+                slot.village = "BUILDER_BASE";
+                slot.type = "BUILDER";
+                slotsToAdd.add(slot);
             }
 
             boolean hasStarLab = existingSlots.stream().anyMatch(s -> "BUILDER_BASE".equals(s.village) && "LAB".equals(s.type));

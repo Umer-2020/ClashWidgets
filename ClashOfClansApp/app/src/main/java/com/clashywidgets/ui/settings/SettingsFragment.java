@@ -41,12 +41,15 @@ public class SettingsFragment extends Fragment {
         binding.npLabAssistantLevel.setMinValue(1);
         binding.npLabAssistantLevel.setMaxValue(12);
 
+        binding.npNumBuilderBaseBuilders.setMinValue(1);
+        binding.npNumBuilderBaseBuilders.setMaxValue(2);
+
         // Load Settings
         repo.getSetting("num_builders").observe(getViewLifecycleOwner(), value -> {
             if (value != null) {
                 binding.npNumBuilders.setValue(Integer.parseInt(value));
             } else {
-                binding.npNumBuilders.setValue(6); // Default 6 builders
+                binding.npNumBuilders.setValue(5); // Default 5 builders
             }
         });
 
@@ -70,6 +73,14 @@ public class SettingsFragment extends Fragment {
             binding.switchWorkForHire.setChecked("true".equals(value));
         });
 
+        repo.getSetting("num_bb_builders").observe(getViewLifecycleOwner(), value -> {
+            if (value != null) {
+                binding.npNumBuilderBaseBuilders.setValue(Integer.parseInt(value));
+            } else {
+                binding.npNumBuilderBaseBuilders.setValue(1); // Default 1 builder base builder
+            }
+        });
+
         // Set Listeners
         binding.npNumBuilders.setOnValueChangedListener((picker, oldVal, newVal) -> {
             repo.saveSetting("num_builders", String.valueOf(newVal));
@@ -85,6 +96,10 @@ public class SettingsFragment extends Fragment {
 
         binding.switchWorkForHire.setOnCheckedChangeListener((buttonView, isChecked) -> {
             repo.saveSetting("work_for_hire", isChecked ? "true" : "false");
+        });
+
+        binding.npNumBuilderBaseBuilders.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            repo.saveSetting("num_bb_builders", String.valueOf(newVal));
         });
     }
 
