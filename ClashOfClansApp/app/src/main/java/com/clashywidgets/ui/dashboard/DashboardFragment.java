@@ -70,7 +70,7 @@ public class DashboardFragment extends Fragment {
             AddTaskBottomSheet sheet = new AddTaskBottomSheet(slotWithTask.slot.id, slotWithTask.slot.name);
             sheet.show(getChildFragmentManager(), "AddTask");
         } else {
-            BoostTaskBottomSheet sheet = new BoostTaskBottomSheet(slotWithTask.task);
+            BoostTaskBottomSheet sheet = new BoostTaskBottomSheet(slotWithTask);
             sheet.show(getChildFragmentManager(), "BoostTask");
         }
     }

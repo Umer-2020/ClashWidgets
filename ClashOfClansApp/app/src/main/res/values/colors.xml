@@ -20,11 +20,15 @@
     <color name="card_bg">#2E1F0A</color>
     <!-- Navigation bar background -->
     <color name="nav_bar_bg">#241508</color>
+    
+    <!-- Light background for bottom sheet -->
+    <color name="bg_light">#F4EBD8</color>
 
     <!-- ── Text ─────────────────────────────────────────────────────────── -->
     <color name="text_primary">#FFFFFF</color>
     <color name="text_secondary">#D4B483</color>
     <color name="text_hint">#7A6040</color>
+    <color name="text_light">#FFFFFF</color>
 
     <!-- ── Navigation item tinting ──────────────────────────────────────── -->
     <!-- Selector for nav item color (active = gold, inactive = muted) is in

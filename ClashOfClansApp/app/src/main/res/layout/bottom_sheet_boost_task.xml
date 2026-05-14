@@ -17,6 +17,7 @@
         android:layout_marginBottom="16dp" />
 
     <TextView
+        android:id="@+id/tv_boost_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Apply Builder's Apprentice Boost (Subtracts Hours)"
@@ -34,11 +35,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hours to subtract: "
-            android:textColor="@color/text_hint"/>
+            android:textColor="@color/text_light"/>
 
         <NumberPicker
             android:id="@+id/np_boost_hours"
             android:layout_width="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp" />
 
@@ -55,7 +57,7 @@
         android:id="@+id/btn_delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancel / Delete Upgrade"
+        android:text="Cancel Upgrade"
         style="@style/Widget.Material3.Button.OutlinedButton"
         android:textColor="@color/builder_red" />
 
