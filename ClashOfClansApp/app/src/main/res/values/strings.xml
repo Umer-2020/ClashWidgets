@@ -45,4 +45,8 @@
     <string name="alarm_channel_name">Upgrade Alarms</string>
     <string name="alarm_notification_title">Upgrade finishing soon!</string>
     <string name="alarm_notification_body">%1$s is almost done.</string>
+
+    <!-- Widget descriptions (shown in the widget picker) -->
+    <string name="widget_minimal_desc">ClashyWidgets – Minimal: shows builder/lab availability at a glance.</string>
+    <string name="widget_detailed_desc">ClashyWidgets – Detailed: shows every slot with live countdown timers.</string>
 </resources>

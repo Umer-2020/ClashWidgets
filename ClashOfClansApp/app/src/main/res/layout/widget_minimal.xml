@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Widget #1 – Minimal (2×3 / 2×4)
+    NOTE: RemoteViews only allows a specific set of view classes.
+    Plain <View> is NOT allowed — use <ImageView> for decorative elements.
+    Allowed: FrameLayout, LinearLayout, RelativeLayout, ImageView, TextView,
+             Button, Chronometer, ProgressBar, ImageButton, ViewFlipper, etc.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_minimal_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_background"
+    android:padding="10dp">
+
+    <!-- App title row -->
+    <TextView
+        android:id="@+id/widget_minimal_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="⚔ ClashyWidgets"
+        android:textColor="#F0A500"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="6dp" />
+
+    <!-- HOME VILLAGE header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🏠 Home Village"
+        android:textColor="#D4B483"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:paddingBottom="2dp" />
+
+    <!-- Builders row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="3dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="👷 Builders"
+            android:textColor="#FFFFFF"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/widget_minimal_home_builders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="–/6"
+            android:textColor="#4CAF50"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Lab row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="3dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🔬 Lab"
+            android:textColor="#FFFFFF"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/widget_minimal_home_lab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="–/1"
+            android:textColor="#C86DD7"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Pet House row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🐾 Pet House"
+            android:textColor="#FFFFFF"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/widget_minimal_home_pet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="–/1"
+            android:textColor="#FF9800"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Divider: ImageView replaces <View> which is not allowed in RemoteViews -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#3E2A0D"
+        android:layout_marginBottom="4dp"
+        android:contentDescription="@null" />
+
+    <!-- BUILDER BASE header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🔨 Builder Base"
+        android:textColor="#D4B483"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:paddingBottom="2dp" />
+
+    <!-- BB Builders row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="3dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="👷 Builders"
+            android:textColor="#FFFFFF"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/widget_minimal_bb_builders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="–/2"
+            android:textColor="#4CAF50"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Star Lab row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="⭐ Star Lab"
+            android:textColor="#FFFFFF"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/widget_minimal_bb_lab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="–/1"
+            android:textColor="#C86DD7"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Tap hint -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom|center_horizontal"
+        android:text="Tap to open app"
+        android:textColor="#7A6040"
+        android:textSize="8sp"
+        android:paddingTop="4dp" />
+
+</LinearLayout>

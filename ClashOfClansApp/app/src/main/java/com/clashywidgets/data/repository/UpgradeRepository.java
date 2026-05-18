@@ -12,6 +12,9 @@ import com.clashywidgets.data.db.UpgradeTask;
 import com.clashywidgets.data.db.UpgradeTaskDao;
 import com.clashywidgets.data.db.WorkerSlot;
 import com.clashywidgets.data.db.WorkerSlotDao;
+import com.clashywidgets.widget.DetailedWidgetProvider;
+import com.clashywidgets.widget.MinimalWidgetProvider;
+import com.clashywidgets.alarm.AlarmScheduler;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -31,9 +34,11 @@ public class UpgradeRepository {
     private final UpgradeTaskDao upgradeTaskDao;
     private final AppSettingsDao appSettingsDao;
     private final ExecutorService executor;
+    private final Context appContext; // held for widget broadcasts
 
     private UpgradeRepository(Context context) {
-        db = AppDatabase.getInstance(context);
+        appContext = context.getApplicationContext();
+        db = AppDatabase.getInstance(appContext);
         workerSlotDao = db.workerSlotDao();
         upgradeTaskDao = db.upgradeTaskDao();
         appSettingsDao = db.appSettingsDao();
@@ -104,15 +109,32 @@ public class UpgradeRepository {
     // --- Writes ---
 
     public void insertTask(UpgradeTask task) {
-        executor.execute(() -> upgradeTaskDao.insert(task));
+        executor.execute(() -> {
+            long newId = upgradeTaskDao.insert(task);
+            task.id = (int) newId;
+            // Schedule exact alarm for this new task
+            String slotName = "Upgrade";
+            WorkerSlot slot = workerSlotDao.getSlotsByVillage("HOME").getValue() != null ? null : null; // simplified fallback
+            // To get accurate slot name we can use a separate fetch or just pass it in later. For now, pass generic.
+            AlarmScheduler.scheduleAlarm(appContext, task, "Upgrade");
+            broadcastWidgetUpdate();
+        });
     }
 
     public void deleteTask(int taskId) {
-        executor.execute(() -> upgradeTaskDao.deleteTask(taskId));
+        executor.execute(() -> {
+            AlarmScheduler.cancelAlarm(appContext, taskId);
+            upgradeTaskDao.deleteTask(taskId);
+            broadcastWidgetUpdate();
+        });
     }
 
     public void updateTask(UpgradeTask task) {
-        executor.execute(() -> upgradeTaskDao.update(task));
+        executor.execute(() -> {
+            upgradeTaskDao.update(task);
+            AlarmScheduler.scheduleAlarm(appContext, task, "Upgrade");
+            broadcastWidgetUpdate();
+        });
     }
 
     // Phase 3: Helper boost
@@ -122,6 +144,8 @@ public class UpgradeRepository {
             if (task != null) {
                 task.endTime -= hoursToSubtract * 3600000L;
                 upgradeTaskDao.update(task);
+                AlarmScheduler.scheduleAlarm(appContext, task, "Upgrade");
+                broadcastWidgetUpdate();
             }
         });
     }
@@ -137,7 +161,49 @@ public class UpgradeRepository {
     }
 
     public void saveSetting(String key, String value) {
-        executor.execute(() -> appSettingsDao.insertOrUpdate(new AppSettings(key, value)));
+        executor.execute(() -> {
+            appSettingsDao.insertOrUpdate(new AppSettings(key, value));
+            // Settings changes (e.g. goblin event toggle) also affect widget display
+            broadcastWidgetUpdate();
+        });
+    }
+
+    // --- Sync queries (for widget providers running on background threads) ---
+
+    public List<SlotWithTask> getHomeBuildersWithTasksSync() {
+        return workerSlotDao.getSlotsWithTasksSync("HOME", "BUILDER");
+    }
+
+    public List<SlotWithTask> getLabSlotsWithTasksSync() {
+        return workerSlotDao.getSlotsWithTasksSync("HOME", "LAB");
+    }
+
+    public List<SlotWithTask> getPetSlotsWithTasksSync() {
+        return workerSlotDao.getSlotsWithTasksSync("HOME", "PET");
+    }
+
+    public List<SlotWithTask> getBuilderBaseSlotsWithTasksSync() {
+        return workerSlotDao.getSlotsWithTasksSync("BUILDER_BASE", "BUILDER");
+    }
+
+    public List<SlotWithTask> getStarLabSlotsWithTasksSync() {
+        return workerSlotDao.getSlotsWithTasksSync("BUILDER_BASE", "LAB");
+    }
+
+    public List<SlotWithTask> getAllSlotsWithTasksSync() {
+        return workerSlotDao.getAllSlotsWithTasksSync();
+    }
+
+    // --- Widget broadcast ---
+
+    /**
+     * Tells both widget providers to re-query the DB and redraw.
+     * Called after every DB write so widgets stay in sync without polling.
+     * Must be called from a background thread (repository executor).
+     */
+    private void broadcastWidgetUpdate() {
+        MinimalWidgetProvider.requestUpdate(appContext);
+        DetailedWidgetProvider.requestUpdate(appContext);
     }
 
     public void initializeDefaultSlotsIfNeeded() {

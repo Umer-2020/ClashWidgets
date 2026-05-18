@@ -37,4 +37,18 @@ public interface WorkerSlotDao {
 
     @Query("SELECT * FROM worker_slots ORDER BY id ASC")
     List<WorkerSlot> getAllSlotsSync();
+
+    // ── Sync queries for widget providers (called on background thread) ──────
+
+    @Transaction
+    @Query("SELECT * FROM worker_slots WHERE village = :village AND type = :type ORDER BY id ASC")
+    List<SlotWithTask> getSlotsWithTasksSync(String village, String type);
+
+    @Transaction
+    @Query("SELECT * FROM worker_slots WHERE village = :village ORDER BY id ASC")
+    List<SlotWithTask> getSlotsWithTasksByVillageSync(String village);
+
+    @Transaction
+    @Query("SELECT * FROM worker_slots ORDER BY id ASC")
+    List<SlotWithTask> getAllSlotsWithTasksSync();
 }

@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Widget #2 – Detailed (4×4 / 5×4)
+    FIX: All <View> elements replaced with <ImageView>.
+    Plain <View> is NOT allowed in RemoteViews widget layouts.
+    Allowed views: FrameLayout, LinearLayout, RelativeLayout, ImageView,
+                   TextView, Button, Chronometer, ProgressBar, ImageButton.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_detailed_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_background"
+    android:padding="10dp">
+
+    <!-- Header row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="⚔ ClashyWidgets"
+            android:textColor="#F0A500"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/widget_detailed_updated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="--:--"
+            android:textColor="#7A6040"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <!-- HOME VILLAGE header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🏠 HOME VILLAGE"
+        android:textColor="#F0A500"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:paddingTop="6dp"
+        android:paddingBottom="1dp" />
+
+    <!-- Builders label -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="👷 Builders"
+        android:textColor="#D4B483"
+        android:textSize="8sp"
+        android:paddingTop="2dp"
+        android:paddingBottom="1dp" />
+
+    <!-- Builder Slot 1 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <!-- DOT: ImageView, not View -->
+        <ImageView
+            android:id="@+id/widget_detailed_hb1_dot"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="#4CAF50"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb1_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Builder 1"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <Chronometer
+            android:id="@+id/widget_detailed_hb1_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFD04B"
+            android:textSize="8sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb1_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textColor="#4CAF50"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <!-- Builder Slot 2 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <ImageView
+            android:id="@+id/widget_detailed_hb2_dot"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="#4CAF50"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb2_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Builder 2"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <Chronometer
+            android:id="@+id/widget_detailed_hb2_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFD04B"
+            android:textSize="8sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb2_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textColor="#4CAF50"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <!-- Builder Slot 3 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <ImageView
+            android:id="@+id/widget_detailed_hb3_dot"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="#4CAF50"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb3_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Builder 3"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <Chronometer
+            android:id="@+id/widget_detailed_hb3_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFD04B"
+            android:textSize="8sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb3_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textColor="#4CAF50"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <!-- Builder Slot 4 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <ImageView
+            android:id="@+id/widget_detailed_hb4_dot"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="#4CAF50"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb4_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Builder 4"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <Chronometer
+            android:id="@+id/widget_detailed_hb4_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFD04B"
+            android:textSize="8sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb4_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textColor="#4CAF50"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <!-- Builder Slot 5 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <ImageView
+            android:id="@+id/widget_detailed_hb5_dot"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="#4CAF50"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb5_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Builder 5"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <Chronometer
+            android:id="@+id/widget_detailed_hb5_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFD04B"
+            android:textSize="8sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb5_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textColor="#4CAF50"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <!-- Builder Slot 6 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <ImageView
+            android:id="@+id/widget_detailed_hb6_dot"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="#4CAF50"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb6_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Builder 6"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <Chronometer
+            android:id="@+id/widget_detailed_hb6_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFD04B"
+            android:textSize="8sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb6_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textColor="#4CAF50"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <!-- Goblin Builder Slot (Event only – hidden by default) -->
+    <LinearLayout
+        android:id="@+id/widget_detailed_goblin_builder_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="1dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/widget_detailed_hb7_dot"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="#4CAF50"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb7_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Goblin Builder"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <Chronometer
+            android:id="@+id/widget_detailed_hb7_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFD04B"
+            android:textSize="8sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/widget_detailed_hb7_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textColor="#4CAF50"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <!-- Lab + Pet row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="6dp"
+        android:paddingBottom="2dp">
+
+        <!-- Lab section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔬 Lab"
+                android:textColor="#D4B483"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:paddingBottom="1dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/widget_detailed_lab_dot"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="#4CAF50"
+                    android:layout_marginEnd="3dp"
+                    android:contentDescription="@null" />
+
+                <Chronometer
+                    android:id="@+id/widget_detailed_lab_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#C86DD7"
+                    android:textSize="8sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/widget_detailed_lab_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Available"
+                    android:textColor="#4CAF50"
+                    android:textSize="8sp" />
+            </LinearLayout>
+
+            <!-- Goblin Researcher (Event only) -->
+            <LinearLayout
+                android:id="@+id/widget_detailed_goblin_lab_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="1dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/widget_detailed_lab2_dot"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="#4CAF50"
+                    android:layout_marginEnd="3dp"
+                    android:contentDescription="@null" />
+
+                <Chronometer
+                    android:id="@+id/widget_detailed_lab2_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#C86DD7"
+                    android:textSize="8sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/widget_detailed_lab2_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Available"
+                    android:textColor="#4CAF50"
+                    android:textSize="8sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Pet House section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🐾 Pet House"
+                android:textColor="#D4B483"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:paddingBottom="1dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/widget_detailed_pet_dot"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="#4CAF50"
+                    android:layout_marginEnd="3dp"
+                    android:contentDescription="@null" />
+
+                <Chronometer
+                    android:id="@+id/widget_detailed_pet_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FF9800"
+                    android:textSize="8sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/widget_detailed_pet_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Available"
+                    android:textColor="#4CAF50"
+                    android:textSize="8sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Divider -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#3E2A0D"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="3dp"
+        android:contentDescription="@null" />
+
+    <!-- BUILDER BASE header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🔨 BUILDER BASE"
+        android:textColor="#F0A500"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:paddingBottom="2dp" />
+
+    <!-- BB Builder 1 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="1dp">
+
+        <ImageView
+            android:id="@+id/widget_detailed_bb1_dot"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="#4CAF50"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/widget_detailed_bb1_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Builder Base 1"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <Chronometer
+            android:id="@+id/widget_detailed_bb1_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFD04B"
+            android:textSize="8sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/widget_detailed_bb1_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textColor="#4CAF50"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <!-- BB Builder 2 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="1dp">
+
+        <ImageView
+            android:id="@+id/widget_detailed_bb2_dot"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="#4CAF50"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/widget_detailed_bb2_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Builder Base 2"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <Chronometer
+            android:id="@+id/widget_detailed_bb2_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFD04B"
+            android:textSize="8sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/widget_detailed_bb2_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textColor="#4CAF50"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <!-- Star Lab -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/widget_detailed_starlab_dot"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="#4CAF50"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="⭐ Star Lab"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp" />
+
+        <Chronometer
+            android:id="@+id/widget_detailed_starlab_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#C86DD7"
+            android:textSize="8sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/widget_detailed_starlab_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textColor="#4CAF50"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <!-- Tap hint -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom|center_horizontal"
+        android:text="Tap to open app"
+        android:textColor="#7A6040"
+        android:textSize="8sp"
+        android:paddingTop="3dp" />
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Minimal Widget – AppWidget provider metadata.
+    minWidth / minHeight are approximate grid-cell sizes.
+    minResizeWidth / minResizeHeight let the user shrink it one column.
+    updatePeriodMillis = 0 → we push updates manually from WidgetUpdateService,
+    which is more efficient than the 30-minute minimum Android enforces.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="220dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="110dp"
+    android:targetCellWidth="2"
+    android:targetCellHeight="3"
+    android:updatePeriodMillis="0"
+    android:initialLayout="@layout/widget_minimal"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:description="@string/widget_minimal_desc" />
